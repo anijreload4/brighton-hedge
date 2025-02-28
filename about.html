@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Brighton-Hedge Limited</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Core Variables */
+        :root {
+            --primary-green: #7AB80E;
+            --primary-blue: #005B94;
+            --light-gray: #f5f5f5;
+            --dark-gray: #333333;
+            --white: #ffffff;
+            --transition: all 0.3s ease;
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--dark-gray);
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.4s;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 0;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-green);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: #689b0c;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(122, 184, 14, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: var(--primary-blue);
+            color: var(--white);
+        }
+
+        .btn-secondary:hover {
+            background-color: #004a7a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 91, 148, 0.4);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            position: relative;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-green);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            padding: 5px 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled .logo img {
+            height: 40px;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled .logo-text {
+            font-size: 1.3rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+            position: relative;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            color: var(--dark-gray);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:not(.btn)::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-green);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:not(.btn):hover::after,
+        .nav-links a.active:not(.btn)::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-green);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--white);
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            border-radius: 4px;
+            padding: 10px 0;
+            transform: translateY(10px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px 20px;
+            font-weight: 400;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(rgba(0, 91, 148, 0.8), rgba(0, 91, 148, 0.8)), url('https://placehold.co/1920x400/005B94/FFFFFF?text=About+Us');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            text-align: center;
+            padding: 150px 0 80px;
+            margin-bottom: 50px;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* About Section Styles */
+        .about-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 60px;
+        }
+
+        .about-intro p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .about-image {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 100px;
+            height: 100px;
+            border-top: 5px solid var(--primary-green);
+            border-left: 5px solid var(--primary-green);
+            z-index: -1;
+        }
+
+        .about-image::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            width: 100px;
+            height: 100px;
+            border-bottom: 5px solid var(--primary-blue);
+            border-right: 5px solid var(--primary-blue);
+            z-index: -1;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .about-text h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-green);
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+        }
+
+        /* Mission Vision Values */
+        .mission-vision {
+            background-color: var(--light-gray);
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-vision::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background-color: rgba(122, 184, 14, 0.1);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .mission-vision::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            background-color: rgba(0, 91, 148, 0.1);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .mission-vision-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .mission-vision-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            top: 0;
+        }
+
+        .mission-vision-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .mission-vision-icon {
+            width: 70px;
+            height: 70px;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.8rem;
+            transition: var(--transition);
+        }
+
+        .mission-vision-card:hover .mission-vision-icon {
+            background-color: var(--primary-green);
+            transform: rotateY(180deg);
+        }
+
+        .mission-vision-title {
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+
+        .mission-vision-text {
+            color: #666;
+        }
+
+        /* Team Section */
+        .team {
+            padding: 80px 0;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .team-member {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .team-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .team-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .team-member:hover .team-image img {
+            transform: scale(1.1);
+        }
+
+        .team-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .team-name {
+            font-size: 1.3rem;
+            color: var(--primary-blue);
+            margin-bottom: 5px;
+        }
+
+        .team-position {
+            color: var(--primary-green);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .team-bio {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .team-social {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .team-social a {
+            width: 35px;
+            height: 35px;
+            background-color: var(--light-gray);
+            color: var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .team-social a:hover {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        /* Why Choose Us */
+        .why-choose-us {
+            background-color: var(--light-gray);
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .why-choose-us::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://placehold.co/100x100/FFFFFF/FFFFFF?text=Pattern');
+            opacity: 0.05;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            transition: var(--transition);
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            color: var(--primary-green);
+            font-size: 2rem;
+            margin-right: 20px;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.2);
+        }
+
+        .feature-content h3 {
+            font-size: 1.3rem;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+
+        .feature-content p {
+            color: #666;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(rgba(0, 91, 148, 0.9), rgba(0, 91, 148, 0.9)), url('https://placehold.co/1920x1080/FFFFFF/FFFFFF?text=CTA+Background');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            text-align: center;
+            padding: 100px 0;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 60px 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary-green), var(--primary-blue));
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .footer-about p {
+            margin-bottom: 20px;
+        }
+
+        .footer-heading {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-heading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-green);
+            transition: width 0.3s ease;
+        }
+
+        .footer-heading:hover::after {
+            width: 100px;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .footer-links li:hover {
+            transform: translateX(10px);
+        }
+
+        .footer-links a {
+            transition: var(--transition);
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .footer-links a::before {
+            content: '\f105';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--primary-green);
+        }
+
+        .footer-contact li {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .footer-contact i {
+            color: var(--primary-green);
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--primary-green);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .mission-vision-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                order: -1;
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: var(--white);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 40px;
+                transition: var(--transition);
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                display: none;
+                padding: 10px 0;
+                margin-top: 10px;
+                width: 100%;
+                text-align: center;
+            }
+
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <img src="https://placehold.co/100x50/005B94/FFFFFF?text=BH" alt="Brighton-Hedge Logo">
+                    <div class="logo-text">BRIGHTON-HEDGE</div>
+                </div>
+
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)">Services <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="real-estate.html">Real Estate & Construction</a>
+                            <a href="interior-design.html">Interior & Exterior Decoration</a>
+                            <a href="general-contract.html">General Contract & Supply</a>
+                            <a href="food-services.html">Food Services</a>
+                        </div>
+                    </li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="about.html" class="active">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="quote.html" class="btn btn-primary">Get Quote</a></li>
+                </ul>
+
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">About Us</h1>
+            <p class="page-subtitle">Learn more about Brighton-Hedge Limited and our commitment to excellence</p>
+        </div>
+    </section>
+
+    <!-- About Intro Section -->
+    <section class="section">
+        <div class="container">
+            <div class="about-intro">
+                <h2 class="section-title">Our Story</h2>
+                <p>Brighton Hedge Limited is a company in Nigeria with the aim of providing qualitative services to desiring clients. We offer top-notch Renovation and Remodelling services, Project Management, Interior and Exterior designs to residences, individuals, corporate, and commercial Organizations.</p>
+                <p>We provide a wide range of home and office solutions (Furnitures & Fittings) as well as engage in executing general contracts of all kinds. We also carry out cleaning services that rids your space of long lasting stain and dirt leaving your home sparkling clean with a breath of fresh air.</p>
+                <p>We are your no one go to plug for the above services as we provide qualitative services to clients and exceeds our customers expectations.</p>
+            </div>
+
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Who We Are</h3>
+                    <p>Brighton-Hedge Limited was established with a vision to transform spaces and exceed client expectations through innovative design solutions and quality craftsmanship. Our team consists of experienced professionals who are passionate about creating functional and aesthetically pleasing environments.</p>
+                    <p>We understand that each client has unique needs and preferences, which is why we take a personalized approach to every project. Our commitment to excellence and attention to detail have earned us a reputation as a trusted partner for renovation, remodeling, and interior design projects across Nigeria.</p>
+                    <p>At Brighton-Hedge, we believe that successful projects are built on strong client relationships, clear communication, and a deep understanding of our clients' vision. We work closely with our clients throughout the entire process, from initial consultation to project completion, ensuring that every detail meets our high standards of quality.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://placehold.co/600x400/005B94/FFFFFF?text=Our+Team" alt="Brighton-Hedge Team">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission, Vision, Values Section -->
+    <section class="mission-vision">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Mission, Vision & Values</h2>
+                <p class="section-subtitle">What drives us forward</p>
+            </div>
+
+            <div class="mission-vision-grid">
+                <div class="mission-vision-card">
+                    <div class="mission-vision-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3 class="mission-vision-title">Our Mission</h3>
+                    <p class="mission-vision-text">To provide exceptional renovation, remodeling, and interior design services that transform spaces and enhance the quality of life for our clients. We are committed to delivering innovative solutions that combine functionality, aesthetics, and sustainability.</p>
+                </div>
+
+                <div class="mission-vision-card">
+                    <div class="mission-vision-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3 class="mission-vision-title">Our Vision</h3>
+                    <p class="mission-vision-text">To be the leading provider of renovation and interior design services in Nigeria, recognized for our creativity, quality craftsmanship, and client-centered approach. We aspire to set new standards in the industry and create spaces that inspire and delight.</p>
+                </div>
+
+                <div class="mission-vision-card">
+                    <div class="mission-vision-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="mission-vision-title">Our Values</h3>
+                    <p class="mission-vision-text">Integrity, excellence, innovation, and client satisfaction are the core values that guide our work. We believe in transparent communication, attention to detail, creative problem-solving, and building lasting relationships with our clients based on trust and mutual respect.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="section team">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Team</h2>
+                <p class="section-subtitle">Meet the professionals behind Brighton-Hedge</p>
+            </div>
+
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="team-image">
+                        <img src="https://placehold.co/400x400/005B94/FFFFFF?text=CEO" alt="CEO">
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">John Doe</h3>
+                        <p class="team-position">Chief Executive Officer</p>
+                        <p class="team-bio">With over 15 years of experience in the construction and design industry, John leads our team with vision and expertise.</p>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa

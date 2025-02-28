@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Projects | Brighton-Hedge Limited</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Core Variables */
+        :root {
+            --primary-green: #7AB80E;
+            --primary-blue: #005B94;
+            --light-gray: #f5f5f5;
+            --dark-gray: #333333;
+            --white: #ffffff;
+            --transition: all 0.3s ease;
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--dark-gray);
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.4s;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 0;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-green);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: #689b0c;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(122, 184, 14, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: var(--primary-blue);
+            color: var(--white);
+        }
+
+        .btn-secondary:hover {
+            background-color: #004a7a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 91, 148, 0.4);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            position: relative;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-green);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            padding: 5px 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled .logo img {
+            height: 40px;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled .logo-text {
+            font-size: 1.3rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+            position: relative;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            color: var(--dark-gray);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:not(.btn)::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-green);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:not(.btn):hover::after,
+        .nav-links a.active:not(.btn)::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-green);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--white);
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            border-radius: 4px;
+            padding: 10px 0;
+            transform: translateY(10px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px 20px;
+            font-weight: 400;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(rgba(0, 91, 148, 0.8), rgba(0, 91, 148, 0.8)), url('https://placehold.co/1920x400/005B94/FFFFFF?text=Our+Projects');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            text-align: center;
+            padding: 150px 0 80px;
+            margin-bottom: 50px;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Project Filter */
+        .project-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .filter-btn {
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: var(--primary-green);
+            color: var(--white);
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .project-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: var(--transition);
+            height: 300px;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.1);
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+            color: var(--white);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover .project-title {
+            transform: translateY(0);
+        }
+
+        .project-category {
+            color: var(--primary-green);
+            font-weight: 600;
+            margin-bottom: 15px;
+            transform: translateY(20px);
+            transition: transform 0.3s ease 0.1s;
+        }
+
+        .project-card:hover .project-category {
+            transform: translateY(0);
+        }
+
+        .project-btn {
+            display: inline-block;
+            background-color: var(--primary-green);
+            color: var(--white);
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 600;
+            transform: translateY(20px);
+            transition: all 0.3s ease 0.2s;
+        }
+
+        .project-card:hover .project-btn {
+            transform: translateY(0);
+        }
+
+        .project-btn:hover {
+            background-color: var(--white);
+            color: var(--primary-green);
+        }
+
+        /* Project Details */
+        .project-details {
+            margin-top: 80px;
+        }
+
+        .project-details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .project-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-item.main {
+            grid-column: span 2;
+            height: 300px;
+        }
+
+        .project-info h2 {
+            font-size: 2rem;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .project-info h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-green);
+        }
+
+        .project-info p {
+            margin-bottom: 20px;
+        }
+
+        .project-meta {
+            background-color: var(--light-gray);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .meta-item {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .meta-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .meta-title {
+            font-weight: 600;
+            color: var(--primary-blue);
+            width: 120px;
+        }
+
+        .meta-value {
+            flex: 1;
+        }
+
+        .project-features {
+            margin-bottom: 30px;
+        }
+
+        .project-features h3 {
+            font-size: 1.3rem;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+        }
+
+        .feature-list li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            color: var(--primary-green);
+            position: absolute;
+            left: 0;
+            top: 2px;
+        }
+
+        /* Testimonial */
+        .project-testimonial {
+            background-color: var(--light-gray);
+            padding: 30px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .project-testimonial::before {
+            content: '\f10d';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            font-size: 2rem;
+            color: var(--primary-green);
+            opacity: 0.2;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+
+        .author-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            color: var(--primary-blue);
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+
+        /* Related Projects */
+        .related-projects {
+            margin-top: 80px;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(rgba(0, 91, 148, 0.9), rgba(0, 91, 148, 0.9)), url('https://placehold.co/1920x1080/FFFFFF/FFFFFF?text=CTA+Background');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            text-align: center;
+            padding: 100px 0;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 60px 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary-green), var(--primary-blue));
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .footer-about p {
+            margin-bottom: 20px;
+        }
+
+        .footer-heading {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-heading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-green);
+            transition: width 0.3s ease;
+        }
+
+        .footer-heading:hover::after {
+            width: 100px;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .footer-links li:hover {
+            transform: translateX(10px);
+        }
+
+        .footer-links a {
+            transition: var(--transition);
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .footer-links a::before {
+            content: '\f105';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--primary-green);
+        }
+
+        .footer-contact li {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .footer-contact i {
+            color: var(--primary-green);
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--primary-green);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .project-details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-gallery {
+                margin-bottom: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: var(--white);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 40px;
+                transition: var(--transition);
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                display: none;
+                padding: 10px 0;
+                margin-top: 10px;
+                width: 100%;
+                text-align: center;
+            }
+
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <img src="https://placehold.co/100x50/005B94/FFFFFF?text=BH" alt="Brighton-Hedge Logo">
+                    <div class="logo-text">BRIGHTON-HEDGE</div>
+                </div>
+
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)">Services <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="real-estate.html">Real Estate & Construction</a>
+                            <a href="interior-design.html">Interior & Exterior Decoration</a>
+                            <a href="general-contract.html">General Contract & Supply</a>
+                            <a href="food-services.html">Food Services</a>
+                        </div>
+                    </li>
+                    <li><a href="projects.html" class="active">Projects</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="quote.html" class="btn btn-primary">Get Quote</a></li>
+                </ul>
+
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Our Projects</h1>
+            <p class="page-subtitle">Explore our portfolio of successful projects across various sectors</p>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section">
+        <div class="container">
+            <div class="project-filter">
+                <div class="filter-btn active" data-filter="all">All Projects</div>
+                <div class="filter-btn" data-filter="office">Office Renovation</div>
+                <div class="filter-btn" data-filter="residential">Residential</div>
+                <div class="filter-btn" data-filter="commercial">Commercial</div>
+                <div class="filter-btn" data-filter="religious">Religious</div>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Health Systems Consult Limited -->
+                <div class="project-card" data-category="office">
+                    <img src="https://placehold.co/600x400/005B94/FFFFFF?text=HSCL" alt="Health Systems Consult Limited" class="project-image">
+                    <div class="project-overlay">
+                        <h3 class="project-title">Health Systems Consult Limited</h3>
+                        <p class="project-category">Office Renovation</p>
+                        <a href="#hscl" class="project-btn">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Ife Ijis' Residence -->
+                <div class="project-card" data-category="residential">
+                    <img src="https://placehold.co/600x400/005B94/FFFFFF?text=Ife+Ijis" alt="Ife Ijis' Residence" class="project-image">
+                    <div class="project-overlay">
+                        <h3 class="project-title">Ife Ijis' Residence</h3>
+                        <p class="project-category">Residential Renovation</p>
+                        <a href="#ife-ijis" class="project-btn">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Majestic House Church -->
+                <div class="project-card" data-category="religious">
+                    <img src="https://placehold.co/600x400/005B94/FFFFFF?text=Majestic+House" alt="Majestic House Church" class="project-image">
+                    <div class="project-overlay">
+                        <h3 class="project-title">Majestic House Church</h3>
+                        <p class="project-category">Interior Decoration</p>
+                        <a href="#majestic-house" class="project-btn">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Tech Hub Office -->
+                <div class="project-card" data-category="office">
+                    <img src="https://placehold.co/600x400/005B94/FFFFFF?text=Tech+Hub" alt="Tech Hub Office" class="project-image">
+                    <div class="project-overlay">
+                        <h3 class="project-title">Tech Hub Office</h3>
+                        <p class="project-category">Office Design & Renovation</p>
+                        <a href="#tech-hub" class="project-btn">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Luxury Villa -->
+                <div class="project-card" data-category="residential">
+                    <img src="https://placehold.co/600x400/005B94/FFFFFF?text=Luxury+Villa" alt="Luxury Villa" class="project-image">
+                    <div class="project-overlay">
+                        <h3 class="project-title">Luxury Villa</h3>
+                        <p class="project-category">Residential Construction</p>
+                        <a href="#luxury-villa" class="project-btn">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Retail Store -->
+                <div class="project-card" data-category="commercial">
+                    <img src="https://placehold.co/600x400/005B94/FFFFFF?text=Retail+Store" alt="Retail Store" class="project-image">
+                    <div class="project-overlay">
+                        <h3 class="project-title">Modern Retail Store</h3>
+                        <p class="project-category">Commercial Renovation</p>
+                        <a href="#retail-store" class="project-btn">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Details: Health Systems Consult Limited -->
+    <section id="hscl" class="section project-details">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Health Systems Consult Limited</h2>
+                <p class="section-subtitle">Office Renovation Project</p>
+            </div>
+
+            <div class="project-details-grid">
+                <div class="project-gallery">
+                    <div class="gallery-item main">
+                        <img src="https://placehold.co/800x400/005B94/FFFFFF?text=HSCL+Main" alt="HSCL Office">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://placehold.co/400x300/005B94/FFFFFF?text=Conference+Room" alt="Conference Room">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://placehold.co/400x300/005B94/FFFFFF?text=Office+Space" alt="Office Space">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://placehold.co/400x300/005B94/FFFFFF?text=Reception" alt="Reception Area">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://placehold.co/400x300/005B94/FFFFFF?text=Bathroom" alt="Modern Bathroom">
+                    </div>
+                </div>
+
+                <div class="project-info">
+                    <h2>Project Overview</h2>
+                    <p>Health Systems Consult Limited approached us to renovate their office space, creating a modern, functional environment that reflects their corporate identity and enhances productivity.</p>
+
+                    <div class="project-meta">
+                        <div class="meta-item">
+                            <div class="meta-title">Client:</div>
+                            <div class="meta-value">Health Systems Consult Limited</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-title">Location:</div>
+                            <div class="meta-value">Lagos, Nigeria</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-title">Project Type:</div>
+                            <div class="meta-value">Office Renovation</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-title">Duration:</div>
+                            <div class="meta-value">6 Weeks</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-title">Completion:</div>
+                            <div class="meta-value">January 2023</div>
+                        </div>
+                    </div>
+
+                    <div class="project-features">
+                        <h3>Project Scope</h3>
+                        <ul class="feature-list">
+                            <li>Scraping of dilapidated walls/paint</li>
+                            <li>Treatment of wall with chemicals to stop water retainment</li>
+                            <li>Screeding and painting of office</li>
+                            <li>Installation of window blinds, office furniture (tables, sofas, orthopedic chairs etc)</li>
+                            <li>Total setup of conference room</li>
+                            <li>Industrial cleaning and polishing of toilet, tiles and office space</li>
+                        </ul>
+                    </div>
+
+                    <div class="project-testimonial">
+                        <p class="testimonial-text">"Brighton-Hedge transformed our office space beyond our expectations. The team was professional, efficient, and delivered exceptional quality work. Our employees now enjoy a more comfortable and productive work environment."</p>
+                        <div class="testimonial-author">
+                            <div class="author-image">
+                                <img src="https://placehold.co/100x100/005B94/FFFFFF?text=CEO" alt="CEO">
+                            </div>
+                            <div class="author-info">
+                                <h4>John Adeyemi</h4>
+                                <p>CEO, Health Systems Consult Limited</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Details: Ife Ijis' Residence -->
+    <section id="ife-ijis" class="section project-details">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Ife Ijis' Residence</h2>
+                <p class="section-subtitle">Residential Renovation Project</p>
+            </div>
+
+            <div class="project-details-grid">
+                <div class="project-gallery">
+                    <div class="gallery-item main">
+                        <img src="https://placehold.co/800x400/005B94/FFFFFF?text=Ife+Ijis+Main" alt="Ife Ijis Residence">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://placehold.co/400x300/005B94/FFFFFF?text=Before" alt="Before Renovation">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://placehold.co/400x300/005B94/FFFFFF?text=After" alt="After Renovation">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://placehold.co/400x300/005B94/FFFFFF?text=Bathroom" alt="Modern Bathroom">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://placehold.co/400x300/005B94/FFFFFF?text=Garden" alt="Garden with Flowers">
+                    </div>
+                </div>
+
+                <div class="project-info">
+                    <h2>Project Overview</h2>
+                    <p>We undertook a complete renovation of this 3-bedroom bungalow, transforming it into a modern, comfortable living space that meets the client's lifestyle needs while maximizing functionality and aesthetic appeal.</p>
+
+                    <div class="project-meta">
+                        <div class="meta-item">
+                            <div class="meta-title">Client:</div>
+                            <div class="meta-value">Ife Ijis</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-title">Location:</div>
+                            <div class="meta-value">Lagos, Nigeria</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-title">Project Type:</div>
+                            <div class="meta-value">Residential Renovation</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-title">Duration:</div>
+                            <div class="meta-value">8 Weeks</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-title">Completion:</div>
+                            <div class="meta-value">March 2023</div>
+                        </div>
+                    </div>
+
+                    <div class="project-features">
+                        <h3>Project Scope</h3>
+                        <ul class="feature-list">
+                            <li>Complete renovation of 3 Bedroom Bungalow with 2 BQs</li>
+                            <li>Tylorene on the BQ and fence</li>
+                            <li>Refurbishing of old toilets to modern day glass bathroom and WC</li>
+                            <li>Planting of flowers and installation of sprinklers</li>
+                            <li>Interior decoration and furniture installation</li>
+                            <li>Exterior painting and landscaping</li>
+                        </ul>
+                    </div>
+
+                    <div class="project-testimonial">
+                        <p class="testimonial-text">"I am extremely satisfied with the renovation work done by Brighton-Hedge. They transformed my home into a beautiful, modern space that exceeds my expectations. Their attention to detail and commitment to quality is impressive."</p>
+                        <div class="testimonial-author">
+                            <div class="author-image">
+                                <img src="https://placehold.co/100x100/005B94/FFFFFF?text=Client" alt="Client">
+                            </div>
+                            <div class="author-info">
+                                <h4>Ife Ijis</h4>
+                                <p>Homeowner</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Details: Majestic House Church -->
+    <section id="majestic-house" class="section project-details">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Majestic House Church</h2>
+                <p class="section-subtitle">Religious Building Renovation</p>
+            </div>
+
+            <div class="project-details-grid">
+                <div class="project-gallery">
+                    <div class="gallery-item main">
+                        <img src="https://placehold.co/800x400/005B94/FFFFFF?text=Majestic+House+Main" alt="Majestic House Church">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://placehold.co/400x300/005B94/FFFFFF?text=Interior" alt="Church Interior">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://placehold.co/400x300/005B94/FFFFFF?text=Ceiling" alt="Decorative Ceiling">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://placehold.co/400x300/005B94/FFFFFF?text=Exterior" alt="Church Exterior">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://placehold.co/400x300/005B94/FFFFFF?text=Fence" alt="Church Fence">
+                    </div>
+                </div>
+
+                <div class="project-info">
+                    <h2>Project Overview</h2>
+                    <p>Majestic House Church engaged our services for a complete renovation of their worship space, creating an inspiring environment that enhances the spiritual experience of their congregation while improving functionality and aesthetics.</p>
+
+                    <div class="project-meta">
+                        <div class="meta-item">
+                            <div class="meta-title">Client:</div>
+                            <div class="meta-value">Majestic House Church</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-title">Location:</div>
+                            <div class="meta-value">Lagos, Nigeria</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-title">Project Type:</div>
+                            <div class="meta-value">Religious Building Renovation</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-title">Duration:</div>
+                            <div class="meta-value">10 Weeks</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-title">Completion:</div>
+                            <div class="meta-value">December 2022</div>
+                        </div>
+                    </div>
+
+                    <div class="project-features">
+                        <h3>Project Scope</h3>
+                        <ul class="feature-list">
+                            <li>Interior decoration of the Church</li>
+                            <li>Tylorene around the church and fence</li>
+                            <li>Painting and facelift of the building</li>
+                            <li>Installation of decorative ceiling</li>
+                            <li>Lighting improvements</li>
+                            <li>Acoustic treatments for better sound quality</li>
+                        </ul>
+                    </div>
+
+                    <div class="project-testimonial">
+                        <p class="testimonial-text">"Brighton-Hedge has done an exceptional job renovating our church. The space is now more inviting, beautiful, and functional. Our congregation has been overwhelmed by the transformation. We highly recommend their services."</p>
+                        <div class="testimonial-author">
+                            <div class="author-image">
+                                <img src="https://placehold.co/100x100/005B94/FFFFFF?text=Pastor" alt="Pastor">
+                            </div>
+                            <div class="author-info">
+                                <h4>Pastor Emmanuel Okonkwo</h4>
+                                <p>Lead Pastor, Majestic House Church</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Start Your Project?</h2>
+                <p>Contact us today for a free consultation and quote. Let us help you transform your space.</p>
+                <div class="cta-buttons">
+                    <a href="contact.html" class="btn btn-primary">Contact Us</a>
+                    <a href="quote.html" class="btn btn-secondary">Get a Quote</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <img src="https://placehold.co/100x50/FFFFFF/005B94?text=BH" alt="Brighton-Hedge Logo">
+                        <div class="logo-text">BRIGHTON-HEDGE</div>
+                    </div>
+                    <p>Brighton Hedge Limited is a company in Nigeria with the aim of providing qualitative services to desiring clients.</p>
+                </div>
+
+                <div class="footer-links">
+                    <h3 class="footer-heading">Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-services">
+                    <h3 class="footer-heading">Our Services</h3>
+                    <ul>
+                        <li><a href="real-estate.html">Real Estate & Construction</a></li>
+                        <li><a href="interior-design.html">Interior & Exterior Decoration</a></li>
+                        <li><a href="general-contract.html">General Contract & Supply</a></li>
+                        <li><a href="food-services.html">Food Services</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h3 class="footer-heading">Contact Us</h3>
+                    <ul>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>Lagos, Nigeria</div>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <div>+234 9134018051, +234 8132282068</div>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <div>brightonhedgeltd@gmail.com</div>
+                        </li>
+                    </ul>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Brighton-Hedge Limited. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Header Scroll Effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        const dropdowns = document.querySelectorAll('.dropdown');
+
+        hamburger.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            this.classList.toggle('active');
+        });
+
+        // Handle dropdowns in mobile view
+        dropdowns.forEach(dropdown => {
+            const dropdownLink = dropdown.querySelector('a');
+            
+            dropdownLink.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    dropdown.classList.toggle('active');
+                }
+            });
+        });
+
+        // Project Filtering
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all buttons
+                filterBtns.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Get filter value
+                const filterValue = this.getAttribute('data-filter');
+                
+                // Filter projects
+                projectCards.forEach(card => {
+                    if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Animate elements on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.project-card, .gallery-item, .feature-card');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            animateOnScroll(); // Initial check for elements in viewport
+            
+            // Add scroll event listener for animations
+            window.addEventListener('scroll', animateOnScroll);
+        });
+    </script>
+</body>
+</html>
